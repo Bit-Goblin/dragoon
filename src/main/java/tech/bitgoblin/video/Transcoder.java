@@ -45,9 +45,10 @@ public class Transcoder {
       String filename = Paths.get(filePath).getFileName().toString();
       String outputPath = Paths.get(this.repo_dir, "output", String.format("%s.mov", filename)).toString();
 
-      String cmd = String.format("%s -i %s -c:v %s -vf \"%s\" -profile:v %s -c:a %s %s",
+      String cmd = String.format("%s -i %s -y -f %s -c:v %s -vf %s -profile:v %s -c:a %s %s",
         this.ffmpeg_path, // FFMPEG binary path
         f.toString(), // input file
+        "mov",
         "dnxhd", // video codec
         "scale=1920x1080,fps=60,format=yuv422p", // video format
         "dnxhr_hq", // video profile
@@ -56,12 +57,13 @@ public class Transcoder {
       );
 
       ProcessBuilder pb = new ProcessBuilder(cmd.split("\\s+"));
-      pb.redirectErrorStream(true);
-      pb.redirectOutput(ProcessBuilder.Redirect.PIPE);
+      pb.inheritIO(); // use the java processes' input and output streams
       try {
         Process process = pb.start();
         int ret = process.waitFor();
-        System.out.printf("Program exited with code: %d", ret);
+        System.out.printf("Program exited with code: %d\n", ret);
+        System.out.println(String.join(" ", pb.command()));
+        System.out.println();
       } catch (IOException | InterruptedException e) {
         throw new RuntimeException(e);
       }
@@ -80,23 +82,6 @@ public class Transcoder {
     IOUtils.createDirectory(Paths.get(this.repo_dir, "ingest").toString());
     IOUtils.createDirectory(Paths.get(this.repo_dir, "archive").toString());
     IOUtils.createDirectory(Paths.get(this.repo_dir, "output").toString());
-  }
-
-
-  // Stream handler class for the Transcoder
-  private static class StreamGobbler implements Runnable {
-    private InputStream inputStream;
-    private Consumer<String> consumer;
-
-    public StreamGobbler(InputStream inputStream, Consumer<String> consumer) {
-        this.inputStream = inputStream;
-        this.consumer = consumer;
-    }
-
-    @Override
-    public void run() {
-      new BufferedReader(new InputStreamReader(inputStream)).lines().forEach(consumer);
-    }
   }
 
 }
