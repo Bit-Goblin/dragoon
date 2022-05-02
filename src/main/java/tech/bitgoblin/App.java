@@ -1,5 +1,6 @@
 package tech.bitgoblin;
 
+import tech.bitgoblin.config.Config;
 import tech.bitgoblin.video.Transcoder;
 
 /**
@@ -9,9 +10,11 @@ import tech.bitgoblin.video.Transcoder;
 public class App {
 
   public static void main(String[] args) {
+    // read our config file
+    Config c = new Config("~/dragoon/config.toml");
     // create new Transcoder object and start the service
-    Transcoder t = new Transcoder("~/dragoon");
-    t.transcode();
+    //Transcoder t = new Transcoder("~/dragoon");
+    //t.transcode();
   }
 
 }
