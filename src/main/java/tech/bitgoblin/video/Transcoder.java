@@ -25,12 +25,9 @@ public class Transcoder {
   public Transcoder(Config config) {
     this.config = config;
     this.repo_dir = IOUtils.resolveTilda(config.getString("transcoder.repo_path"));
-    this.initDirectory();
-  }
-  // define a custom FFMPEG binary path
-  public Transcoder(String repo_dir, String ffmpeg_path) {
-    this.repo_dir = IOUtils.resolveTilda(repo_dir);
-    this.ffmpeg_path = ffmpeg_path;
+    if (this.config.contains("transcoder.ffmpeg_path")) {
+      this.ffmpeg_path = config.getString("transcoder.ffmpeg_path");
+    }
     this.initDirectory();
   }
 

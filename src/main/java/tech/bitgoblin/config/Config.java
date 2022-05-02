@@ -10,7 +10,7 @@ import tech.bitgoblin.io.IOUtils;
 
 public class Config {
 
-  private String configPath;
+  private final String configPath;
   private TomlParseResult result;
 
   public Config(String path) {
@@ -18,8 +18,6 @@ public class Config {
     // parse config file
     try {
       this.parseConfig();
-      String value = this.result.getString("repo");
-      System.out.println(value);
     } catch (IOException e) {
       System.out.println("Unable to read config file; please check that " + this.configPath + " is available.");
       System.exit(1);
@@ -28,6 +26,10 @@ public class Config {
 
   public String getString(String key) {
     return this.result.getString(key);
+  }
+
+  public boolean contains(String key) {
+    return this.result.contains(key);
   }
 
   private void parseConfig() throws IOException {

@@ -15,8 +15,8 @@ public class App {
     // read our config file
     Config c = new Config(configFile);
     // create new Transcoder object and start the service
-    //Transcoder t = new Transcoder("~/dragoon");
-    //t.transcode();
+    Transcoder t = new Transcoder(c);
+    t.transcode();
   }
 
 }
