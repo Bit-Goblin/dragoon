@@ -12,16 +12,19 @@ import java.nio.file.Paths;
 import java.util.function.Consumer;
 import java.util.concurrent.Executors;
 
+import tech.bitgoblin.config.Config;
 import tech.bitgoblin.io.IOUtils;
 
 public class Transcoder {
 
   private String repo_dir;
+  private Config config;
   private String ffmpeg_path = "/usr/bin/ffmpeg";
 
   // only define the working directory; use default FFMPEG path
-  public Transcoder(String repo_dir) {
-    this.repo_dir = IOUtils.resolveTilda(repo_dir);
+  public Transcoder(Config config) {
+    this.config = config;
+    this.repo_dir = IOUtils.resolveTilda(config.getString("transcoder.repo_path"));
     this.initDirectory();
   }
   // define a custom FFMPEG binary path

@@ -1,5 +1,6 @@
 package tech.bitgoblin.config;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -17,11 +18,16 @@ public class Config {
     // parse config file
     try {
       this.parseConfig();
-      String value = result.getString("repo");
+      String value = this.result.getString("repo");
       System.out.println(value);
     } catch (IOException e) {
-      throw new RuntimeException(e);
+      System.out.println("Unable to read config file; please check that " + this.configPath + " is available.");
+      System.exit(1);
     }
+  }
+
+  public String getString(String key) {
+    return this.result.getString(key);
   }
 
   private void parseConfig() throws IOException {
