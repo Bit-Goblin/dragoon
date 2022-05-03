@@ -2,7 +2,7 @@ pipeline:
   build:
     image: maven:3-jdk-11
     commands:
-      - mvn clean package
+      - mvn clean compile assembly:single
 
   gitea_release:
     image: plugins/gitea-release
