@@ -14,9 +14,9 @@ public class IOUtils {
   }
 
   public static String resolveTilda(String path) {
-    if (path.startsWith("~" + File.separator)) {
+    if (path.startsWith("~" + File.separator) || path.equals("~")) {
       path = System.getProperty("user.home") + path.substring(1);
-    } else if (path.startsWith("~")) {
+    } else if ((!path.equals("~")) && path.startsWith("~")) {
       // here you can implement reading homedir of other users if you care
       throw new UnsupportedOperationException("Home dir expansion not implemented for explicit usernames");
     }
