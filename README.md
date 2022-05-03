@@ -34,8 +34,9 @@ If you were paying attention to Dragoon's output, you would have noticed that it
 # This example transcodes footage to DNxHD 1080p60 for use in video editors like DaVinci Resolve.
 [transcoder]
 repo_path = '~/videos' # location of the videos to transcode
+video_format = 'mov' # video container format
 video_codec = 'dnxhd' # video codec to use
-video_format = 'scale=1920x1080,fps=60,format=yuv422p' # video format flag - this will be broken later into separate attributes
+video_parameters = 'scale=1920x1080,fps=60,format=yuv422p' # video extra format parameters flag - this will be broken later into separate attributes
 video_profile = 'dnxhr_hq' # DNxHD has multiple presets for various video qualities
 audio_codec = 'pcm_s16le' # audio codec to use
 ```

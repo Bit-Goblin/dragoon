@@ -24,9 +24,9 @@ public class Transcoder {
   // only define the working directory; use default FFMPEG path
   public Transcoder(Config config) {
     this.config = config;
-    this.repo_dir = IOUtils.resolveTilda(config.getString("transcoder.repo_path"));
+    this.repo_dir = IOUtils.resolveTilda(this.config.getString("transcoder.repo_path"));
     if (this.config.contains("transcoder.ffmpeg_path")) {
-      this.ffmpeg_path = config.getString("transcoder.ffmpeg_path");
+      this.ffmpeg_path = this.config.getString("transcoder.ffmpeg_path");
     }
     this.initDirectory();
   }
@@ -48,11 +48,11 @@ public class Transcoder {
       String cmd = String.format("%s -i %s -y -f %s -c:v %s -vf %s -profile:v %s -c:a %s %s",
         this.ffmpeg_path, // FFMPEG binary path
         f.toString(), // input file
-        "mov",
-        "dnxhd", // video codec
-        "scale=1920x1080,fps=60,format=yuv422p", // video format
-        "dnxhr_hq", // video profile
-        "pcm_s16le", // audio codec
+        this.config.getString("transcoder.video_format"), // video container format
+        this.config.getString("transcoder.video_codec"), // video codec
+        this.config.getString("transcoder.video_parameters"), // video format
+        this.config.getString("transcoder.video_profile"), // video profile
+        this.config.getString("transcoder.audio_codec"), // audio codec
         outputPath // output file path
       );
 
