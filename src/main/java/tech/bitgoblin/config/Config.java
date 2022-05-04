@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Objects;
+
 import org.tomlj.Toml;
 import org.tomlj.TomlParseResult;
 import tech.bitgoblin.io.IOUtils;
@@ -26,6 +28,10 @@ public class Config {
 
   public String getString(String key) {
     return this.result.getString(key);
+  }
+
+  public int getInt(String key) {
+    return Objects.requireNonNull(this.result.getDouble(key)).intValue();
   }
 
   public boolean contains(String key) {

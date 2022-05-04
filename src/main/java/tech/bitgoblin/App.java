@@ -1,7 +1,10 @@
 package tech.bitgoblin;
 
 import tech.bitgoblin.config.Config;
-import tech.bitgoblin.video.Transcoder;
+import tech.bitgoblin.transcoder.RunTranscoderTask;
+import tech.bitgoblin.transcoder.Transcoder;
+
+import java.util.Timer;
 
 /**
  * The Bit Goblin video transcoder service.
@@ -16,7 +19,8 @@ public class App {
     Config c = new Config(configFile);
     // create new Transcoder object and start the service
     Transcoder t = new Transcoder(c);
-    t.transcode();
+    Timer timer = new Timer();
+    timer.scheduleAtFixedRate(new RunTranscoderTask(t), 2500, 120 * 1000);
   }
 
 }

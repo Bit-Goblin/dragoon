@@ -1,16 +1,14 @@
-package tech.bitgoblin.video;
+package tech.bitgoblin.transcoder;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.IOException;
 import java.lang.InterruptedException;
 import java.lang.Process;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.function.Consumer;
-import java.util.concurrent.Executors;
+import java.nio.file.StandardCopyOption;
+import java.util.Timer;
 
 import tech.bitgoblin.config.Config;
 import tech.bitgoblin.io.IOUtils;
@@ -31,12 +29,23 @@ public class Transcoder {
     this.initDirectory();
   }
 
+  // create a periodic timer task and start it
+  public void start() {
+    Timer timer = new Timer();
+    timer.scheduleAtFixedRate(new RunTranscoderTask(this), 10000, this.config.getInt("transcoder.interval") * 60 * 1000);
+  }
+
   // transcode files in the working directory
   public void transcode() {
     // search for files
     System.out.println("Searching for files to transcode in " + this.repo_dir);
     File repo = new File(Paths.get(this.repo_dir, "ingest").toString());
     File[] sourceFiles = repo.listFiles();
+
+    if (sourceFiles.length == 0) {
+      System.out.println("There is nothing to transcode in " + this.repo_dir + "/ingest.");
+      return;
+    }
 
     // transcode
     System.out.println("Transcoding files in " + this.repo_dir + "/ingest...");
@@ -72,6 +81,34 @@ public class Transcoder {
     // end output
     System.out.println("------------ End of transcoding ------------");
     System.out.println();
+  }
+
+  // copies sources files to the archive directory
+  public void archive() {
+    File repo = new File(Paths.get(this.repo_dir, "ingest").toString());
+    File[] sourceFiles = repo.listFiles();
+
+    for (File f : sourceFiles) {
+      Path filePath = Path.of(f.toString());
+      String filename = filePath.getFileName().toString();
+      String archivePath = Paths.get(this.repo_dir, "archive", filename).toString();
+
+      try {
+        Files.copy(filePath, Paths.get(archivePath), StandardCopyOption.COPY_ATTRIBUTES, StandardCopyOption.REPLACE_EXISTING);
+      } catch (IOException e) {
+        throw new RuntimeException(e);
+      }
+    }
+  }
+
+  // clean up the ingest directory once we're done
+  public void cleanup() {
+    File repo = new File(Paths.get(this.repo_dir, "ingest").toString());
+    File[] sourceFiles = repo.listFiles();
+
+    for (File f : sourceFiles) {
+      f.delete();
+    }
   }
 
   // ensures the transcoder's working directory is available
