@@ -13,11 +13,7 @@ public class RunTranscoderTask extends TimerTask {
   @Override
   public void run() {
     // archive the files
-    transcoder.archive();
-    // run the transcoder
-    transcoder.transcode();
-    // clean up ingest
-    transcoder.cleanup();
+    transcoder.run();
   }
 
 }

@@ -31,7 +31,7 @@ public class Config {
   }
 
   public int getInt(String key) {
-    return Objects.requireNonNull(this.result.getDouble(key)).intValue();
+    return Objects.requireNonNull(this.result.getLong(key)).intValue();
   }
 
   public boolean contains(String key) {
