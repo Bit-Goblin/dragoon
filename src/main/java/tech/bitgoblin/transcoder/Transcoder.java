@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Timer;
 
+import tech.bitgoblin.Logger;
 import tech.bitgoblin.config.Config;
 import tech.bitgoblin.io.IOUtils;
 
@@ -46,12 +47,12 @@ public class Transcoder {
 
     // check if the ingest directory is empty
     if (sourceFiles.length == 0) {
-      System.out.println("There is nothing to transcode in ingest.");
+      Logger.logger.info("There is nothing to transcode in ingest.");
       return;
     }
 
     // transcode
-    System.out.println("Transcoding video files ingest...");
+    Logger.logger.info("Transcoding video files ingest...");
     for (File f : sourceFiles) {
       String filePath = f.toString().substring(0, f.toString().lastIndexOf("."));
       String filename = Paths.get(filePath).getFileName().toString();
@@ -73,16 +74,16 @@ public class Transcoder {
       try {
         Process process = pb.start();
         int ret = process.waitFor();
-        System.out.printf("Program exited with code: %d\n", ret);
-        System.out.println();
+        Logger.logger.info("Program exited with code: %d", ret);
+        Logger.logger.info("");
       } catch (IOException | InterruptedException e) {
         throw new RuntimeException(e);
       }
     }
 
     // end output
-    System.out.println("------------ End of transcoding ------------");
-    System.out.println();
+    Logger.logger.info("------------ End of transcoding ------------");
+    Logger.logger.info("");
   }
 
 }

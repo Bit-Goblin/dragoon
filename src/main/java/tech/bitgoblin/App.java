@@ -23,7 +23,7 @@ public class App {
     Transcoder t = new Transcoder(c);
     Timer timer = new Timer();
     timer.scheduleAtFixedRate(new RunTranscoderTask(t), 2500, ((long) c.getInt("transcoder.interval") * msToMinutes));
-    System.out.printf("Starting transcoder, running in %d minute intervals.%n", c.getInt("transcoder.interval"));
+    Logger.logger.info(String.format("Starting transcoder, running in %d minute intervals.", c.getInt("transcoder.interval")));
   }
 
 }

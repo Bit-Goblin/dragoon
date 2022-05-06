@@ -8,6 +8,7 @@ import java.util.Objects;
 
 import org.tomlj.Toml;
 import org.tomlj.TomlParseResult;
+import tech.bitgoblin.Logger;
 import tech.bitgoblin.io.IOUtils;
 
 public class Config {
@@ -21,7 +22,7 @@ public class Config {
     try {
       this.parseConfig();
     } catch (IOException e) {
-      System.out.println("Unable to read config file; please check that " + this.configPath + " is available.");
+      Logger.logger.info("Unable to read config file; please check that " + this.configPath + " is available.");
       System.exit(1);
     }
   }

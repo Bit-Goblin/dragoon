@@ -1,5 +1,6 @@
 package tech.bitgoblin.transcoder;
 
+import tech.bitgoblin.Logger;
 import tech.bitgoblin.io.IOUtils;
 
 import java.io.File;
@@ -33,7 +34,7 @@ public class Repository {
 
   // searches this ingest directory for video files
   public File[] searchIngest() {
-    System.out.println("Searching for files to transcode in " + this.ingestPath);
+    Logger.logger.info("Searching for files to transcode in " + this.ingestPath);
     File repo = new File(this.ingestPath);
     return repo.listFiles();
   }
