@@ -40,10 +40,7 @@ public class Repository {
   }
 
   // archives files in the ingest directory
-  public void archiveIngest() {
-    File repo = new File(this.archivePath);
-    File[] sourceFiles = repo.listFiles();
-
+  public void archiveIngest(File[] sourceFiles) {
     for (File f : sourceFiles) {
       Path filePath = Path.of(f.toString());
       String filename = filePath.getFileName().toString();
@@ -58,10 +55,7 @@ public class Repository {
   }
 
   // clean up the ingest directory once we're done
-  public void cleanupIngest() {
-    File repo = new File(this.ingestPath);
-    File[] sourceFiles = repo.listFiles();
-
+  public void cleanupIngest(File[] sourceFiles) {
     for (File f : sourceFiles) {
       f.delete();
     }

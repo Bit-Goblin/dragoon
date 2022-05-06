@@ -32,19 +32,19 @@ public class Transcoder {
 
   // create a periodic timer task and start it
   public void run() {
-    // save source video files
-    this.repo.archiveIngest();
-    // transcode video files to new format
-    this.transcode();
-    // cleanup old video files in ingest
-    this.repo.cleanupIngest();
+    // pull list of files to transcode
+    File[] sourceFiles = this.repo.searchIngest();
+
+    // archive files
+    this.repo.archiveIngest(sourceFiles);
+    // transcode files
+    this.transcode(sourceFiles);
+    // cleanup old files
+    this.repo.cleanupIngest(sourceFiles);
   }
 
   // transcode files in the working directory
-  public void transcode() {
-    // search for files
-    File[] sourceFiles = this.repo.searchIngest();
-
+  public void transcode(File[] sourceFiles) {
     // check if the ingest directory is empty
     if (sourceFiles.length == 0) {
       Logger.logger.info("There is nothing to transcode in ingest.");
