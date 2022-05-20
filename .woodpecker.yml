@@ -2,6 +2,7 @@ pipeline:
   test:
     image: maven:3-jdk-11
     commands:
+      - apt update && apt install -y lsof
       - mvn test
 
   build:
