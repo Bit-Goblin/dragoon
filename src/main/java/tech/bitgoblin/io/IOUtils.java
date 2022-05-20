@@ -1,6 +1,8 @@
 package tech.bitgoblin.io;
 
-import java.io.File;
+import tech.bitgoblin.Logger;
+
+import java.io.*;
 
 public class IOUtils {
 
@@ -22,6 +24,25 @@ public class IOUtils {
     }
 
     return path;
+  }
+
+  // checks to see if a file is currently locked/being written to.
+  public static boolean isFileLocked(File file) throws IOException {
+    String[] cmd = {"lsof", file.toString()};
+    Process process = Runtime.getRuntime().exec(cmd);
+    BufferedReader reader = new BufferedReader(new InputStreamReader(
+        process.getInputStream()));
+
+    boolean isOpen = false; // we'll change this if lsof returns that the file is open
+
+    String s;
+    while ((s = reader.readLine()) != null) {
+      if (s.endsWith(file.toString())) {
+        isOpen = true;
+      }
+    }
+
+    return isOpen;
   }
 
 }

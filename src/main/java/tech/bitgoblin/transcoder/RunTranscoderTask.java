@@ -1,5 +1,6 @@
 package tech.bitgoblin.transcoder;
 
+import java.io.IOException;
 import java.util.TimerTask;
 
 public class RunTranscoderTask extends TimerTask {
@@ -13,7 +14,11 @@ public class RunTranscoderTask extends TimerTask {
   @Override
   public void run() {
     // archive the files
-    transcoder.run();
+    try {
+      transcoder.run();
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
 }

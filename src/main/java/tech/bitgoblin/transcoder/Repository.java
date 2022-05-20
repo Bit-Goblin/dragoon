@@ -40,25 +40,21 @@ public class Repository {
   }
 
   // archives files in the ingest directory
-  public void archiveIngest(File[] sourceFiles) {
-    for (File f : sourceFiles) {
-      Path filePath = Path.of(f.toString());
-      String filename = filePath.getFileName().toString();
-      String archivePath = Paths.get(this.archivePath, filename).toString();
+  public void archiveFile(File sourceFile) {
+    Path filePath = Path.of(sourceFile.toString());
+    String filename = filePath.getFileName().toString();
+    String archivePath = Paths.get(this.archivePath, filename).toString();
 
-      try {
-        Files.copy(filePath, Paths.get(archivePath), StandardCopyOption.COPY_ATTRIBUTES, StandardCopyOption.REPLACE_EXISTING);
-      } catch (IOException e) {
-        throw new RuntimeException(e);
-      }
+    try {
+      Files.copy(filePath, Paths.get(archivePath), StandardCopyOption.COPY_ATTRIBUTES, StandardCopyOption.REPLACE_EXISTING);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
     }
   }
 
   // clean up the ingest directory once we're done
-  public void cleanupIngest(File[] sourceFiles) {
-    for (File f : sourceFiles) {
-      f.delete();
-    }
+  public void cleanupFile(File sourceFile) {
+    sourceFile.delete();
   }
 
   // returns the repository's path
