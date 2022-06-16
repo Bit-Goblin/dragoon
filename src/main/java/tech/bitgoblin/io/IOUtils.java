@@ -1,7 +1,5 @@
 package tech.bitgoblin.io;
 
-import tech.bitgoblin.Logger;
-
 import java.io.*;
 
 public class IOUtils {

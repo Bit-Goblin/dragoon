@@ -8,7 +8,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
@@ -38,6 +37,7 @@ public class IOUtilsTest {
   public void fileShouldBeLocked() throws IOException {
     RandomAccessFile raf = new RandomAccessFile(testFile, "rw");
     assertTrue(IOUtils.isFileLocked(new File(testFile)));
+    raf.close();
   }
 
   @Test
