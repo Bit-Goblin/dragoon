@@ -5,11 +5,35 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>tech.bitgoblin</groupId>
-    <artifactId>Dragoon</artifactId>
+    <artifactId>dragoon</artifactId>
     <version>0.3.1</version>
 
     <name>Dragoon</name>
     <url>https://www.bitgoblin.tech</url>
+    <description>Automated video transcoder service.</description>
+    <inceptionYear>2022</inceptionYear>
+
+    <organization>
+        <name>Bit Goblin</name>
+        <url>https://www.bitgoblin.tech</url>
+    </organization>
+
+    <developers>
+        <developer>
+            <id>gballantine</id>
+            <name>Gregory Ballantine</name>
+            <email>gballantine@bitgoblin.tech</email>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>BSD</name>
+            <url>https://opensource.org/licenses/BSD-2-Clause</url>
+            <distribution>repo</distribution>
+            <comments>Simplified BSD license.</comments>
+        </license>
+    </licenses>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -42,81 +66,192 @@
     </dependencies>
 
     <build>
-        <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
-            <plugins>
-                <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
-                <plugin>
-                    <artifactId>maven-clean-plugin</artifactId>
-                    <version>3.1.0</version>
-                </plugin>
-                <!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
-                <plugin>
-                    <artifactId>maven-resources-plugin</artifactId>
-                    <version>3.0.2</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.8.0</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.22.1</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.0.2</version>
-                    <configuration>
-                        <!-- DO NOT include log4j.properties file in your Jar -->
-                        <excludes>
-                            <exclude>**/log4j.properties</exclude>
-                        </excludes>
-                        <archive>
-                            <manifest>
-                                <!-- Jar file entry point -->
-                                <mainClass>tech.bitgoblin.App</mainClass>
-                            </manifest>
-                        </archive>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-assembly-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <phase>package</phase>
-                            <goals>
-                                <goal>single</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <archive>
-                            <manifest>
-                                <mainClass>tech.bitgoblin.App</mainClass>
-                            </manifest>
-                        </archive>
-                        <descriptorRefs>
-                            <descriptorRef>jar-with-dependencies</descriptorRef>
-                        </descriptorRefs>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-install-plugin</artifactId>
-                    <version>2.5.2</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-deploy-plugin</artifactId>
-                    <version>2.8.2</version>
-                </plugin>
-                <!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle -->
-                <plugin>
-                    <artifactId>maven-site-plugin</artifactId>
-                    <version>3.7.1</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-project-info-reports-plugin</artifactId>
-                    <version>3.0.0</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
+        <plugins>
+            <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.1.0</version>
+            </plugin>
+            <!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.0.2</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.1</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <!-- DO NOT include log4j.properties file in your Jar -->
+                    <excludes>
+                        <exclude>**/log4j.properties</exclude>
+                    </excludes>
+                    <archive>
+                        <manifest>
+                            <!-- Jar file entry point -->
+                            <mainClass>tech.bitgoblin.App</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>tech.bitgoblin.App</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.aerse.maven</groupId>
+                <artifactId>deb-maven-plugin</artifactId>
+                <version>1.16</version>
+                <executions>
+                    <execution>
+                        <id>package</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>package</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <unixUserId>dragoon</unixUserId>
+                    <unixGroupId>dragoon</unixGroupId>
+                    <debBaseDir>${project.basedir}/src/build/deb</debBaseDir>
+                    <installDir>/opt</installDir>
+                    <osDependencies>
+                        <openjdk-11-jdk></openjdk-11-jdk>
+                        <maven></maven>
+                        <ffmpeg></ffmpeg>
+                    </osDependencies>
+                    <javaServiceWrapper>false</javaServiceWrapper>
+                    <generateVersion>false</generateVersion>
+                    <fileSets>
+                        <fileSet>
+                            <source>${basedir}/src/build/deb</source>
+                            <target>/</target>
+                        </fileSet>
+                        <fileSet>
+                            <source>${basedir}/target/dragoon-${project.version}-jar-with-dependencies.jar</source>
+                            <target>/opt/dragoon/dragoon.jar</target>
+                        </fileSet>
+                    </fileSets>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>rpm-maven-plugin</artifactId>
+                <version>2.2.0</version>
+                <executions>
+                    <execution>
+                        <id>generate-rpm</id>
+                        <goals>
+                            <goal>rpm</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <license>BSD 2-Clause</license>
+                    <group>Applications/Multimedia</group>
+                    <icon>src/main/resources/icon.gif</icon>
+                    <packager>Bit Goblin</packager>
+                    <prefix>/opt</prefix>
+                    <changelogFile>${project.basedir}/src/build/changelog.txt</changelogFile>
+                    <targetOs>linux</targetOs>
+                    <mappings>
+                        <mapping>
+                            <directory>/opt/dragoon</directory>
+                            <filemode>755</filemode>
+                            <username>dragoon</username>
+                            <groupname>dragoon</groupname>
+                        </mapping>
+                        <mapping>
+                            <directory>/opt/dragoon/dragoon.jar</directory>
+                            <filemode>755</filemode>
+                            <username>dragoon</username>
+                            <groupname>dragoon</groupname>
+                            <sources>
+                                <source>
+                                    <location>${basedir}/target/dragoon-${project.version}-jar-with-dependencies.jar</location>
+                                </source>
+                            </sources>
+                        </mapping>
+                        <mapping>
+                            <directory>/etc/dragoon</directory>
+                            <configuration>true</configuration>
+                            <filemode>755</filemode>
+                            <username>dragoon</username>
+                            <groupname>dragoon</groupname>
+                            <sources>
+                                <source>
+                                    <location>${project.basedir}/src/build/deb/etc/dragoon</location>
+                                </source>
+                            </sources>
+                        </mapping>
+                        <mapping>
+                            <directory>/etc/systemd/system/dragoon.service</directory>
+                            <filemode>644</filemode>
+                            <username>root</username>
+                            <groupname>root</groupname>
+                            <sources>
+                                <source>
+                                    <location>${project.basedir}/src/build/deb/etc/systemd/system/dragoon.service</location>
+                                </source>
+                            </sources>
+                        </mapping>
+                    </mappings>
+                    <requires>
+                        <require>java-11-openjdk</require>
+                        <require>ffmpeg</require>
+                    </requires>
+                    <preinstallScriptlet>
+                        <script>echo "installing ${project.name} now"</script>
+                    </preinstallScriptlet>
+                    <postinstallScriptlet>
+                        <scriptFile>src/build/scripts/postinstall.sh</scriptFile>
+                        <fileEncoding>utf-8</fileEncoding>
+                        <filter>true</filter>
+                    </postinstallScriptlet>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.5.2</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.2</version>
+            </plugin>
+            <!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle -->
+            <plugin>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.7.1</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>3.0.0</version>
+            </plugin>
+        </plugins>
     </build>
 </project>

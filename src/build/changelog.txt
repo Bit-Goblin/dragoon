@@ -1,0 +1,1 @@
+# Check https://git.metaunix.net/bitgoblin/dragoon/releases for the current changelog
