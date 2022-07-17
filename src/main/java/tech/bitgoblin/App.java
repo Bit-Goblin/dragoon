@@ -1,5 +1,7 @@
 package tech.bitgoblin;
 
+import org.apache.commons.cli.ParseException;
+import tech.bitgoblin.config.Cmd;
 import tech.bitgoblin.config.Config;
 import tech.bitgoblin.transcoder.RunTranscoderTask;
 import tech.bitgoblin.transcoder.Transcoder;
@@ -12,13 +14,15 @@ import java.util.Timer;
  */
 public class App {
 
-  private static final String configFile = "~/.config/dragoon.toml";
-
   private static final int msToMinutes = 60 * 1000;
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws ParseException {
+    // parse command-line options
+    Cmd cmd = new Cmd(args);
+
     // read our config file
-    Config c = new Config(configFile);
+    Config c = new Config(cmd.getConfigPath());
+
     // create new Transcoder object and start the service
     Transcoder t = new Transcoder(c);
     Timer timer = new Timer();
