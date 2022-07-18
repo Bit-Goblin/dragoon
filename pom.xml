@@ -146,8 +146,7 @@
                     <debBaseDir>${project.basedir}/src/build/deb</debBaseDir>
                     <installDir>/opt</installDir>
                     <osDependencies>
-                        <openjdk-11-jdk></openjdk-11-jdk>
-                        <maven></maven>
+                        <openjdk-11-jre></openjdk-11-jre>
                         <ffmpeg></ffmpeg>
                     </osDependencies>
                     <javaServiceWrapper>false</javaServiceWrapper>
