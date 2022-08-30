@@ -37,8 +37,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
     </properties>
 
     <dependencies>
@@ -146,7 +146,7 @@
                     <debBaseDir>${project.basedir}/src/build/deb</debBaseDir>
                     <installDir>/opt</installDir>
                     <osDependencies>
-                        <openjdk-11-jre></openjdk-11-jre>
+                        <openjdk-17-jre></openjdk-17-jre>
                         <ffmpeg></ffmpeg>
                     </osDependencies>
                     <javaServiceWrapper>false</javaServiceWrapper>
@@ -226,7 +226,7 @@
                         </mapping>
                     </mappings>
                     <requires>
-                        <require>java-11-openjdk</require>
+                        <require>java-17-openjdk</require>
                         <require>ffmpeg</require>
                     </requires>
                     <preinstallScriptlet>

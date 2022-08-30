@@ -1,17 +1,17 @@
 pipeline:
   test:
-    image: maven:3-jdk-11
+    image: maven:3-jdk-17
     commands:
       - apt update && apt install -y lsof
       - mvn test
 
   build:
-    image: maven:3-jdk-11
+    image: maven:3-jdk-17
     commands:
       - mvn clean compile assembly:single
 
   package:
-    image: maven:3-jdk-11
+    image: maven:3-jdk-17
     commands:
       - apt update && apt install -y rpm
       - mvn clean compile package -Dmaven.test.skip
