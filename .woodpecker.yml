@@ -2,7 +2,7 @@ pipeline:
   test:
     image: maven:3-openjdk-18
     commands:
-      - apt update && apt install -y lsof
+      - microdnf install -y lsof
       - mvn test
 
   build:
@@ -13,7 +13,7 @@ pipeline:
   package:
     image: maven:3-openjdk-18
     commands:
-      - apt update && apt install -y rpm
+      - microdnf install -y rpm-build
       - mvn clean compile package -Dmaven.test.skip
     when:
       event: tag
