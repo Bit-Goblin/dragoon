@@ -1,17 +1,17 @@
 pipeline:
   test:
-    image: maven:3-jdk-17
+    image: maven:3-openjdk-18
     commands:
       - apt update && apt install -y lsof
       - mvn test
 
   build:
-    image: maven:3-jdk-17
+    image: maven:3-openjdk-18
     commands:
       - mvn clean compile assembly:single
 
   package:
-    image: maven:3-jdk-17
+    image: maven:3-openjdk-18
     commands:
       - apt update && apt install -y rpm
       - mvn clean compile package -Dmaven.test.skip
