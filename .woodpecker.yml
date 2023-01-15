@@ -2,7 +2,7 @@ pipeline:
   test:
     image: maven:3-eclipse-temurin-17
     commands:
-      - microdnf install -y lsof
+      - apt install -y lsof
       - mvn test
 
   build:
@@ -13,7 +13,7 @@ pipeline:
   package:
     image: maven:3-eclipse-temurin-17
     commands:
-      - microdnf install -y rpm-build
+      - apt install -y rpm
       - mvn clean compile package -Dmaven.test.skip
     when:
       event: tag
