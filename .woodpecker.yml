@@ -1,17 +1,17 @@
 pipeline:
   test:
-    image: maven:3-openjdk-18
+    image: maven:3-eclipse-temurin-17
     commands:
       - microdnf install -y lsof
       - mvn test
 
   build:
-    image: maven:3-openjdk-18
+    image: maven:3-eclipse-temurin-17
     commands:
       - mvn clean compile assembly:single
 
   package:
-    image: maven:3-openjdk-18
+    image: maven:3-eclipse-temurin-17
     commands:
       - microdnf install -y rpm-build
       - mvn clean compile package -Dmaven.test.skip
