@@ -43,7 +43,7 @@ pipeline:
       port: 22
       target: /srv/repo/apt/dragoon/
       source: target/dragoon-*.deb
-      strip_components: 2
+      strip_components: 1
     when:
       event: tag
 
@@ -58,7 +58,7 @@ pipeline:
       port: 22
       target: /srv/repo/dnf/dragoon/
       source: target/rpm/dragoon/RPMS/noarch/dragoon-*.rpm
-      strip_components: 2
+      strip_components: 5
     when:
       event: tag
 
