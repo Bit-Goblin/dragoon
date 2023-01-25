@@ -161,7 +161,7 @@
                             <target>/opt/dragoon/dragoon.jar</target>
                         </fileSet>
                         <fileSet>
-                            <source>${basedir}/src/main/resources/log4j2.xml</source>
+                            <source>${basedir}/src/build/opt/log4j2.xml</source>
                             <target>/opt/dragoon/log4j2.xml</target>
                         </fileSet>
                     </fileSets>
@@ -212,7 +212,7 @@
                             <groupname>dragoon</groupname>
                             <sources>
                                 <source>
-                                    <location>${basedir}/src/main/resources/log4j2.xml</location>
+                                    <location>${basedir}/src/build/opt/log4j2.xml</location>
                                 </source>
                             </sources>
                         </mapping>

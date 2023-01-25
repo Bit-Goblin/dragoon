@@ -4,7 +4,7 @@ Description=Dragoon video transcoder service
 [Service]
 User=dragoon
 Group=dragoon
-ExecStart=/usr/bin/java -jar '/opt/dragoon/dragoon.jar' -Dlog4j.configurationFile=/opt/dragoon/log4j2.xml
+ExecStart=/usr/bin/java -Dlog4j.configurationFile=/opt/dragoon/log4j2.xml -jar '/opt/dragoon/dragoon.jar' -c '/etc/dragoon/config.toml'
 SuccessExitStatus=143
 
 [Install]

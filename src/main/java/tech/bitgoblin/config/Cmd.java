@@ -4,7 +4,7 @@ import org.apache.commons.cli.*;
 
 public class Cmd {
 
-	private String configPath = "/etc/dragoon/config.toml";
+	private String configPath = "~/.config/dragoon.toml";
 
 	public Cmd(String[] args) throws ParseException {
 		Options options = new Options();
