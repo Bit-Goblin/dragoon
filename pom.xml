@@ -160,6 +160,10 @@
                             <source>${basedir}/target/dragoon-${project.version}-jar-with-dependencies.jar</source>
                             <target>/opt/dragoon/dragoon.jar</target>
                         </fileSet>
+                        <fileSet>
+                            <source>${basedir}/src/main/resources/log4j2.xml</source>
+                            <target>/opt/dragoon/log4j2.xml</target>
+                        </fileSet>
                     </fileSets>
                 </configuration>
             </plugin>
@@ -198,6 +202,17 @@
                             <sources>
                                 <source>
                                     <location>${basedir}/target/dragoon-${project.version}-jar-with-dependencies.jar</location>
+                                </source>
+                            </sources>
+                        </mapping>
+                        <mapping>
+                            <directory>/opt/dragoon/log4j2.xml</directory>
+                            <filemode>755</filemode>
+                            <username>dragoon</username>
+                            <groupname>dragoon</groupname>
+                            <sources>
+                                <source>
+                                    <location>${basedir}/src/main/resources/log4j2.xml</location>
                                 </source>
                             </sources>
                         </mapping>
