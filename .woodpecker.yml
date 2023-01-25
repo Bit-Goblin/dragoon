@@ -1,19 +1,19 @@
 pipeline:
   test:
-    image: maven:3-eclipse-temurin-17
+    image: maven:3-eclipse-temurin-17-alpine
     commands:
-      - apt install -y lsof
+      - apk add lsof
       - mvn test
 
   build:
-    image: maven:3-eclipse-temurin-17
+    image: maven:3-eclipse-temurin-17-alpine
     commands:
       - mvn clean compile assembly:single
 
   package:
-    image: maven:3-eclipse-temurin-17
+    image: maven:3-eclipse-temurin-17-alpine
     commands:
-      - apt install -y rpm
+      - apk add rpm
       - mvn clean compile package -Dmaven.test.skip
     when:
       event: tag
