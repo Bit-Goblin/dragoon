@@ -4,17 +4,15 @@ The Bit Goblin video transcoder.
 
 ## Building
 
-Currently this project is targeting Java 11 LTS and uses Maven to manage the software lifecycle. Thus, you must have a Java 11 JDK and Maven installed to build this project.
-
-*NOTE:* The targeted Java version will likely change to 17 LTS soon.
+Currently this project is targeting Java 17 LTS and uses Maven to manage the software lifecycle. Thus, you must have a Java 17 JDK and Maven installed to build this project.
 
 ### Ubuntu
 
-`sudo apt install openjdk-11-jdk maven`
+`sudo apt install openjdk-17-jdk maven`
 
 ### Red Hat/Almalinux
 
-`sudo dnf install java-11-openjdk-devel maven`
+`sudo dnf install java-17-openjdk-devel maven`
 
 ### Actually Building
 
