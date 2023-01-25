@@ -160,10 +160,6 @@
                             <source>${basedir}/target/dragoon-${project.version}-jar-with-dependencies.jar</source>
                             <target>/opt/dragoon/dragoon.jar</target>
                         </fileSet>
-                        <fileSet>
-                            <source>${basedir}/src/build/opt/log4j2.xml</source>
-                            <target>/opt/dragoon/log4j2.xml</target>
-                        </fileSet>
                     </fileSets>
                 </configuration>
             </plugin>
