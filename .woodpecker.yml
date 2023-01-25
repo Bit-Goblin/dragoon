@@ -31,3 +31,49 @@ pipeline:
         - target/rpm/dragoon/RPMS/noarch/dragoon-*.rpm
     when:
       event: tag
+
+  copy_deb_package:
+    image: appleboy/drone-scp
+    settings:
+      host: "repo.int.metaunix.net"
+      username:
+        from_secret: repo_admin
+      password:
+        from_secret: repo_password
+      port: 22
+      target: /srv/repo/apt/dragoon/
+      source: target/dragoon-*.deb
+      strip_components: 2
+    when:
+      event: tag
+
+  copy_rpm_package:
+    image: appleboy/drone-scp
+    settings:
+      host: "repo.int.metaunix.net"
+      username:
+        from_secret: repo_admin
+      password:
+        from_secret: repo_password
+      port: 22
+      target: /srv/repo/dnf/dragoon/
+      source: target/rpm/dragoon/RPMS/noarch/dragoon-*.rpm
+      strip_components: 2
+    when:
+      event: tag
+
+  update_repos:
+    image: appleboy/drone-ssh
+    settings:
+      host:
+        - repo.int.metaunix.net
+      username:
+        from_secret: repo_admin
+      password:
+        from_secret: repo_password
+      port: 22
+      command_timeout: 2m
+      script:
+        - "sudo /home/xadmin/scripts/update_repo.sh"
+    when:
+      event: tag
