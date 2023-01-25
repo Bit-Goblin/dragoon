@@ -208,7 +208,7 @@
                             <groupname>dragoon</groupname>
                             <sources>
                                 <source>
-                                    <location>${basedir}/src/build/deb/opt/log4j2.xml</location>
+                                    <location>${basedir}/src/build/deb/opt/dragoon/log4j2.xml</location>
                                 </source>
                             </sources>
                         </mapping>
