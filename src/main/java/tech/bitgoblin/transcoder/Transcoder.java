@@ -63,18 +63,21 @@ public class Transcoder {
     String filename = Paths.get(filePath).getFileName().toString();
     String outputPath = Paths.get(this.repo.getOutputPath(), String.format("%s.mov", filename)).toString();
 
-    String cmd = String.format("%s -i %s -y -f %s -c:v %s -vf %s -profile:v %s -c:a %s %s",
+    String cmd = String.format("%s -i INPUT_FILE -y -f %s -c:v %s -vf %s -profile:v %s -c:a %s OUTPUT_FILE",
       this.ffmpeg_path, // FFMPEG binary path
-      sourceFile.toString(), // input file
       this.config.getString("transcoder.video_format"), // video container format
       this.config.getString("transcoder.video_codec"), // video codec
       this.config.getString("transcoder.video_parameters"), // video format
       this.config.getString("transcoder.video_profile"), // video profile
-      this.config.getString("transcoder.audio_codec"), // audio codec
-      outputPath // output file path
+      this.config.getString("transcoder.audio_codec") // audio codec
     );
 
-    ProcessBuilder pb = new ProcessBuilder(cmd.split("\\s+"));
+    String[] cmdArr = cmd.split("\\s+");
+    cmdArr[2] = sourceFile.toString();
+    cmdArr[cmdArr.length - 1] = outputPath;
+    System.out.println(String.join(" ", cmdArr));
+
+    ProcessBuilder pb = new ProcessBuilder(cmdArr);
     pb.inheritIO(); // use the java processes' input and output streams
     try {
       Process process = pb.start();
