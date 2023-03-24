@@ -6,7 +6,7 @@
 
     <groupId>tech.bitgoblin</groupId>
     <artifactId>dragoon</artifactId>
-    <version>0.3.10</version>
+    <version>0.3.11</version>
 
     <name>Dragoon</name>
     <url>https://www.bitgoblin.tech</url>
@@ -238,7 +238,7 @@
                     </mappings>
                     <requires>
                         <require>java-17-openjdk</require>
-                        <require>ffmpeg</require>
+                        <require>ffmpeg-free</require>
                     </requires>
                     <preinstallScriptlet>
                         <script>echo "installing ${project.name} now"</script>
