@@ -2,6 +2,30 @@
 
 The Bit Goblin video transcoder.
 
+## Installing from RPM
+
+Installing from the Bit Goblin repository is easy! Add the following repo file to `/etc/yum.repos.d/bitgoblin.repo`:
+
+```
+[bitgoblin]
+name=Bit Goblin repository
+baseurl=http://repo.metaunix.net/dnf
+enabled=1
+gpgcheck=0
+```
+
+Update your package sources just to make sure all was added properly:
+
+```
+dnf updateinfo
+```
+
+Then install dragoon! Use the command below if you DON'T want DNF to install a bunch of unnecessary stuff to meet OpenJDK's weak dependencies; otherwise a regular `dnf install dragoon` is fine:
+
+```
+dnf --setopt=install_weak_deps=False --best install dragoon
+```
+
 ## Building
 
 Currently this project is targeting Java 17 LTS and uses Maven to manage the software lifecycle. Thus, you must have a Java 17 JDK and Maven installed to build this project.
